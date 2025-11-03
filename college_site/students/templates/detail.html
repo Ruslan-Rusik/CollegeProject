@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Фото</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Возраст</th>
+                <th>Группа</th>
+                <th>Действие</th>
+                <th>Клубы</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><img class="img_good" src="{{ student.photo.url }}"></td>
+                <td><a href="{% url 'detail' pk=student.pk %}">{{ student.name }}</a></td>
+                <td>{{ student.last_name }}</td>
+                <td>{{ student.age }}</td>
+                <td>{{ student.group }}</td>
+                <td><a href="{% url 'delete' pk=student.pk %}">Delete /</a>
+                    <a href="{% url 'update' pk=student.pk %}">Update</a>
+                </td>
+                <td>
+                    {% for club in student.clubs.all %}
+                        {{ club }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        Не в клубах
+                    {% endfor %}
+                </td>  
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <form action="{% url 'main' %}">
+        <button type="submit">Назад</button>
+    </form>
+
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=., initial-scale=1.0">
+    <title>update</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="add" id="update_g" type="submit">Обновить товар</button>
+    </form>   
+    <br>
+    <form action="{% url 'main' %}">
+        <button type="submit">Назад</button>
+    </form> 
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="registration-container">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="registration-block">
+                {% if form.non_field_errors %}
+                    <div class="error-message">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <input class='registration_input' id="id_username" name="username" placeholder="Имя"
+                value="{{ form.username.value|default:'' }}" required>
+                {% if form.username.errors %}
+                    <div class="error-message">
+                        {{ form.username.errors.as_text }}
+                    </div>
+                {% endif %}
+                
+                <input type="password" class='registration_input' id="id_password" name="password" placeholder="Пароль"
+                value="{{ form.password.value|default:'' }}" required>
+                {% if form.password.errors %}
+                    <div class="error-message">
+                        {{ form.password.errors.as_text }}
+                    </div>
+                {% endif %}
+                <button type="submit" class="registration_button">Логин</button>
+                <a href="{% url 'register' %}">Нет аккаунта? Зарегистрироваться</a>
+            </div>
+            
+        </form>
+    </div>
+</body>
+</html>

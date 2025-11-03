@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div class="registration-container" style="margin-bottom: 10%">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="registration-block">
+                <h2>Создайте профиль</h2>
+
+                <input class="registration_input" id="id_location" name="location" 
+                placeholder="Ваша страна" value="{{ form.location.value|default:'' }}">
+                {% if form.location.errors %}
+                    <div class="error-message">
+                        {{ form.location.errors.as_text }}
+                    </div>
+                {% endif %}
+
+                <div>
+                    <label for="id_group" class="label_field">Группа: </label>
+                    <select class="registration_input" id="id_group" name="group" required>
+                        {% for value, label in form.fields.group.choices %}
+                            <option value="{{ value }}" {% if form.group.value == value %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    {% if form.group.errors %}
+                        <div class="error-message">
+                            {{ form.group.errors.as_text }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form_clubs_styles">
+                    <div class="div_field_form">Выберите ваши клубы: </div>
+                    {{ form.clubs }}
+                    {% if form.clubs.errors %}
+                        <div class="error-message">
+                            {{ form.clubs.errors.as_text }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- 📍 Общие ошибки формы -->
+                {% if form.non_field_errors %}
+                    <div class="error-message">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <button id="add_g" class="registration_button" type="submit">
+                    Создать профиль
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+
+</body>
+
+</html>

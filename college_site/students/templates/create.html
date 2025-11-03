@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="registration-container">
+        <div class="registration-block">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}    
+                {{ form.as_p }}
+                <button id='add_g' class="add" type="submit">ADD</button>
+            </form>
+
+            <br>
+            <form action="{% url 'main' %}">
+                <button type="submit">Назад</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

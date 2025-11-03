@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div class="registration-container">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="registration-block">
+                {% if form.non_field_errors %}
+                    <div class="error-message">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <input class='registration_input' id="id_username" name="username" placeholder="Имя"
+                value="{{ form.username.value|default:'' }}" required>
+                {% if form.username.errors %}
+                    <div class="error-message">
+                        {{ form.username.errors.as_text }}
+                    </div>
+                {% endif %}
+                
+                <input class='registration_input' id="id_email" name="email" placeholder="Электронная почта" 
+                value="{{ form.email.value|default:'' }}" required>
+                {% if form.email.errors %}
+                    <div class="error-message">
+                        {{ form.email.errors.as_text }}
+                    </div>
+                {% endif %}
+                
+                <input type="password" class='registration_input' id="id_password" name="password" placeholder="Пароль"
+                value="{{ form.password.value|default:'' }}" required>
+                {% if form.password.errors %}
+                    <div class="error-message">
+                        {{ form.password.errors.as_text }}
+                    </div>
+                {% endif %}
+                
+                <input type="password" class='registration_input' id="id_confirm_password" name="confirm_password" placeholder="Подтвердите пароль" 
+                value="{{ form.confirm_password.value|default:'' }}" required>
+                {% if form.confirm_password.errors %}
+                    <div class="error-message">
+                        {{ form.confirm_password.errors.as_text }}
+                    </div>
+                {% endif %}
+                
+                <button type="submit" class="registration_button">Зарегистрироваться</button>
+                <a href="{% url 'login' %}">Уже есть аккаунт? Войти</a>
+            </div>
+            
+        </form>
+    </div>
+
+
+
+</body>
+
+</html>

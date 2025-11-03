@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+{% if user.is_authenticated %}
+    {% if students %}
+    <div class="slider">
+        <table style="scroll-snap-align: start;">
+            <thead>
+                <tr>
+                    <th>Фото</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Возраст</th>
+                    <th>Группа</th>
+                    <th>Действие</th>
+                    <th>Клубы</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td><img class="img_good" src="{{ student.photo.url }}"></td>
+                        <td><a href="{% url 'detail' pk=student.pk %}">{{ student.name }}</a></td>
+                        <td>{{ student.last_name }}</td>
+                        <td>{{ student.age }}</td>
+                        <td>{{ student.group }}</td>
+                        <td><a href="{% url 'delete' pk=student.pk %}">Delete /</a>
+                        <a href="{% url 'update' pk=student.pk %}">Update</a></td>
+                        {% if student.clubs %}
+                        <td>Есть клубы</td>
+                        {% else %}
+                        <td>Не в клубах</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p>Данных нет</p>
+    {% endif %}
+    <br>
+    <div style="max-width: 250px;">
+        <form action="{% url 'create' %}">
+            <button type="submit" class="registration_button">Create</button>
+        </form>
+        <form action="{% url 'logout' %}">
+            <button type="submit" class="registration_button">Выход</button>
+        </form>
+        <form action="{% url 'detail_profile' %}">
+            <button type="submit" class="registration_button">Мой профиль</button>
+        </form>
+    </div>
+
+{% else %}
+<form action="{% url 'register' %}">
+    <button type="submit" class="registration_button">Регистрация</button>
+</form>
+<form action="{% url 'login' %}">
+    <button type="submit" class="registration_button">Логин</button>
+</form>
+{% endif %}
+</body>
+</html>
